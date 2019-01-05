@@ -2,7 +2,7 @@ $fn = 60;
 
 
 top = true;
-players = 2;
+players = 1;
 
 
 gap = 30;
@@ -10,8 +10,9 @@ width = 196;
 total_width = width * players + gap * (players-1);
 height = 180;
 screw_radius = 4/2;
-button_radius = 28/2;
-stick_radius = 28/2;
+button_radius = 30.5/2;
+exit_button_radius = 24.5/2;
+stick_radius = 24/2;
 corner_radius = button_radius;
 
 
@@ -27,7 +28,7 @@ translate([corner_radius, corner_radius]) {
                 }
             }
 
-            exit_button(total_width / 2, height - button_radius, button_radius);
+            exit_button(total_width / 2, height - exit_button_radius, exit_button_radius);
         }
         mounting_holes(width, height, screw_radius, players);
     }
@@ -111,8 +112,8 @@ module joystick_holes(w, h, r) {
 
 
 module joystick_mounting_holes(w, h, r) {
-    mount_w = 50;
-    mount_h = 50;
+    mount_w = 40;
+    mount_h = 82;
 
     translate([1/4*w, h/2]) {
         translate([mount_w/2, mount_h/2]) circle(r=r);
