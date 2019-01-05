@@ -27,9 +27,9 @@ translate([corner_radius, corner_radius]) {
                 }
             }
 
-            mounting_holes(width, height, screw_radius, players);
             exit_button(total_width / 2, height - button_radius, button_radius);
         }
+        mounting_holes(width, height, screw_radius, players);
     }
     //etch(total_width, height, corner_radius, width);
 
