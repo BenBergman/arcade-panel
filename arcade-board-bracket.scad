@@ -1,18 +1,46 @@
 $fn = 60;
 
 
-difference() {
-    translate([0, 0, 0]) cube([50, 105, 5]);
-    translate([10, 10, -0.000001]) board();
-}
+plate_height = 5;
+plate_width = 50;
+plate_length = 105;
+screw_diameter = 2.5;
 
-translate([60, 0, 0]) difference() {
+
+difference() {
     union() {
-        translate([0, 0, 3]) rotate([-90, 0, 0]) cylinder(h=10, d=20);
-        translate([-10, 0, 0]) cube([30, 10, 5]);
+        //translate([0, 0, 0]) cube([plate_width, plate_length, plate_height]);
+        hull() {
+            translate([5, 5, 0]) cylinder(h=plate_height, d=10);
+            translate([plate_width-5, 5, 0]) cylinder(h=plate_height, d=10);
+            translate([5, plate_length-5, 0]) cylinder(h=plate_height, d=10);
+            translate([plate_width-5, plate_length-5, 0]) cylinder(h=plate_height, d=10);
+        }
+
+        translate([plate_width+10, 0, 0]) difference() {
+            union() {
+                translate([0, 0, 3]) rotate([-90, 0, 0]) cylinder(h=10, d=20);
+                hull() {
+                    translate([15, 5, 0]) cylinder(h=plate_height, d=10);
+                    translate([-15, 5, 0]) cylinder(h=plate_height, d=10);
+                }
+            }
+            translate([-50, -50, -30]) cube([100, 100, 30]);
+            translate([0, 5, 5]) rotate([180, 0, 0]) overmold();
+        }
+
+        translate([plate_width, 10, plate_height/2]) rotate([0, 0, 45]) cube([10, 10, plate_height], center=true);
     }
-    translate([-50, -50, -30]) cube([100, 100, 30]);
-    translate([0, 5, 5]) rotate([180, 0, 0]) overmold();
+
+    translate([8, 10, -0.01]) board();
+    // screw holes
+    {
+        translate([5, 5, -10]) cylinder(h=30, d=screw_diameter);
+        translate([plate_width-5, 5, -10]) cylinder(h=30, d=screw_diameter);
+        translate([5, plate_length-5, -10]) cylinder(h=30, d=screw_diameter);
+        translate([plate_width-5, plate_length-5, -10]) cylinder(h=30, d=screw_diameter);
+        translate([plate_width+25, 5, -10]) cylinder(h=30, d=screw_diameter);
+    }
 }
 
 
